@@ -37,7 +37,7 @@ public class JPAConfiguration {
 //		dataSource.setUsername("teste_user");
 //		dataSource.setPassword("teste_user");
 //		return dataSource;
-		
+		// busca configuracoes JPA do datasource do JBoss
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 		return dataSourceLookup.getDataSource("java:jboss/datasources/chamadoDS");
 	}
@@ -50,7 +50,7 @@ public class JPAConfiguration {
 		return properties;
 	}
 	
-	@Bean
+	@Bean //habilita controle transacional
 	public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
 		JpaTransactionManager manager = new JpaTransactionManager();
 		manager.setEntityManagerFactory(factory);
