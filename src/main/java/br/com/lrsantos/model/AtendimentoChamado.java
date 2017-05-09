@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="chamado_service.atendimento")
-@SequenceGenerator(name="SEQ_ID_ATENDIMENTO", sequenceName="chamado_service.seq_id_atendimento")
+@SequenceGenerator(name="SEQ_ID_ATENDIMENTO", sequenceName="chamado_service.seq_id_atendimento", allocationSize=1)
 public class AtendimentoChamado {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_ID_ATENDIMENTO")

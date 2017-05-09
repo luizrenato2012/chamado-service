@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="chamado_service.chamado_tecnico")
-@SequenceGenerator(name="SEQ_ID_CHAMADO", sequenceName="chamado_service.seq_id_chamado")
+@SequenceGenerator(name="SEQ_ID_CHAMADO", sequenceName="chamado_service.seq_id_chamado", allocationSize=1)
 public class ChamadoTecnico {
 	
 	@Id
