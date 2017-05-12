@@ -1,0 +1,203 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.15
+-- Dumped by pg_dump version 9.3.15
+-- Started on 2017-05-12 18:35:32 BRT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 9 (class 2615 OID 18935)
+-- Name: chamado_service; Type: SCHEMA; Schema: -; Owner: teste_user
+--
+
+CREATE SCHEMA chamado_service;
+
+
+ALTER SCHEMA chamado_service OWNER TO teste_user;
+
+SET search_path = chamado_service, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 190 (class 1259 OID 18955)
+-- Name: atendimento; Type: TABLE; Schema: chamado_service; Owner: teste_user; Tablespace: 
+--
+
+CREATE TABLE atendimento (
+    id bigint NOT NULL,
+    data_hora timestamp without time zone,
+    descricao character varying(50),
+    id_chamado integer
+);
+
+
+ALTER TABLE chamado_service.atendimento OWNER TO teste_user;
+
+--
+-- TOC entry 191 (class 1259 OID 18960)
+-- Name: chamado_tecnico; Type: TABLE; Schema: chamado_service; Owner: teste_user; Tablespace: 
+--
+
+CREATE TABLE chamado_tecnico (
+    id integer NOT NULL,
+    cpf character varying(20),
+    data_abertura timestamp without time zone,
+    defeito character varying(50),
+    equipamento character varying(20),
+    marca character varying(20),
+    modelo character varying(20),
+    numero_serie character varying(20),
+    situacao character varying(255)
+);
+
+
+ALTER TABLE chamado_service.chamado_tecnico OWNER TO teste_user;
+
+--
+-- TOC entry 189 (class 1259 OID 18938)
+-- Name: seq_id_atendimento; Type: SEQUENCE; Schema: chamado_service; Owner: teste_user
+--
+
+CREATE SEQUENCE seq_id_atendimento
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 1000
+    CACHE 1;
+
+
+ALTER TABLE chamado_service.seq_id_atendimento OWNER TO teste_user;
+
+--
+-- TOC entry 188 (class 1259 OID 18936)
+-- Name: seq_id_chamado; Type: SEQUENCE; Schema: chamado_service; Owner: teste_user
+--
+
+CREATE SEQUENCE seq_id_chamado
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 1000
+    CACHE 1;
+
+
+ALTER TABLE chamado_service.seq_id_chamado OWNER TO teste_user;
+
+--
+-- TOC entry 2025 (class 0 OID 18955)
+-- Dependencies: 190
+-- Data for Name: atendimento; Type: TABLE DATA; Schema: chamado_service; Owner: teste_user
+--
+
+COPY atendimento (id, data_hora, descricao, id_chamado) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2026 (class 0 OID 18960)
+-- Dependencies: 191
+-- Data for Name: chamado_tecnico; Type: TABLE DATA; Schema: chamado_service; Owner: teste_user
+--
+
+COPY chamado_tecnico (id, cpf, data_abertura, defeito, equipamento, marca, modelo, numero_serie, situacao) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2034 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: seq_id_atendimento; Type: SEQUENCE SET; Schema: chamado_service; Owner: teste_user
+--
+
+SELECT pg_catalog.setval('seq_id_atendimento', 1, false);
+
+
+--
+-- TOC entry 2035 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: seq_id_chamado; Type: SEQUENCE SET; Schema: chamado_service; Owner: teste_user
+--
+
+SELECT pg_catalog.setval('seq_id_chamado', 2, true);
+
+
+--
+-- TOC entry 1912 (class 2606 OID 18959)
+-- Name: atendimento_pkey; Type: CONSTRAINT; Schema: chamado_service; Owner: teste_user; Tablespace: 
+--
+
+ALTER TABLE ONLY atendimento
+    ADD CONSTRAINT atendimento_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1914 (class 2606 OID 18964)
+-- Name: chamado_tecnico_pkey; Type: CONSTRAINT; Schema: chamado_service; Owner: teste_user; Tablespace: 
+--
+
+ALTER TABLE ONLY chamado_tecnico
+    ADD CONSTRAINT chamado_tecnico_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1915 (class 2606 OID 18965)
+-- Name: fk_rx6sal573k2l6a34u3ivatpyv; Type: FK CONSTRAINT; Schema: chamado_service; Owner: teste_user
+--
+
+ALTER TABLE ONLY atendimento
+    ADD CONSTRAINT fk_rx6sal573k2l6a34u3ivatpyv FOREIGN KEY (id_chamado) REFERENCES chamado_tecnico(id);
+
+
+--
+-- TOC entry 2031 (class 0 OID 0)
+-- Dependencies: 9
+-- Name: chamado_service; Type: ACL; Schema: -; Owner: teste_user
+--
+
+REVOKE ALL ON SCHEMA chamado_service FROM PUBLIC;
+REVOKE ALL ON SCHEMA chamado_service FROM teste_user;
+GRANT ALL ON SCHEMA chamado_service TO teste_user;
+GRANT ALL ON SCHEMA chamado_service TO PUBLIC;
+
+
+--
+-- TOC entry 2032 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: seq_id_atendimento; Type: ACL; Schema: chamado_service; Owner: teste_user
+--
+
+REVOKE ALL ON SEQUENCE seq_id_atendimento FROM PUBLIC;
+REVOKE ALL ON SEQUENCE seq_id_atendimento FROM teste_user;
+GRANT ALL ON SEQUENCE seq_id_atendimento TO teste_user;
+GRANT ALL ON SEQUENCE seq_id_atendimento TO PUBLIC;
+
+
+--
+-- TOC entry 2033 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: seq_id_chamado; Type: ACL; Schema: chamado_service; Owner: teste_user
+--
+
+REVOKE ALL ON SEQUENCE seq_id_chamado FROM PUBLIC;
+REVOKE ALL ON SEQUENCE seq_id_chamado FROM teste_user;
+GRANT ALL ON SEQUENCE seq_id_chamado TO teste_user;
+GRANT ALL ON SEQUENCE seq_id_chamado TO PUBLIC;
+
+
+-- Completed on 2017-05-12 18:35:34 BRT
+
+--
+-- PostgreSQL database dump complete
+--
+

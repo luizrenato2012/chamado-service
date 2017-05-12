@@ -52,6 +52,10 @@ public class ChamadoTecnico {
 	@OneToMany(mappedBy="chamado")
 	private List<AtendimentoChamado> listaAtendimento;	
 	
+	public ChamadoTecnico() {
+		this.situacao = SituacaoChamado.ABERTO;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -113,11 +117,15 @@ public class ChamadoTecnico {
 	public void setListaAtendimento(List<AtendimentoChamado> listaAtendimento) {
 		this.listaAtendimento = listaAtendimento;
 	}
+
 	@Override
 	public String toString() {
 		return "ChamadoTecnico [id=" + id + ", cpf=" + cpf + ", dataAbertura="
 				+ dataAbertura + ", equipamento=" + equipamento + ", marca="
-				+ marca + ", modelo=" + modelo + "]";
+				+ marca + ", modelo=" + modelo + ", numeroSerie=" + numeroSerie
+				+ ", defeito=" + defeito + "]";
 	}
+	
+	
 	
 }

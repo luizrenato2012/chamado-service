@@ -25,13 +25,13 @@ import br.com.lrsantos.model.SituacaoChamado;
 
 @Controller
 @RequestMapping("/chamado")
-@Transactional // habilita transacao em todos metodos do metodos da classe
+ // habilita transacao em todos metodos do metodos da classe
 public class ChamadoController {
 
 	@Autowired
 	private ChamadoService chamadoService;
 
-	@RequestMapping("/teste")
+	@RequestMapping(value="/teste", method = RequestMethod.GET)
 	@ResponseBody
 	public String doTeste() {
 		return "teste ok";
@@ -40,15 +40,15 @@ public class ChamadoController {
 	@RequestMapping(value="/todos", method=RequestMethod.GET)
 	public ResponseEntity<List<ChamadoTecnico>> listaTodos() {
 		ResponseEntity<List<ChamadoTecnico>> entity ;
-		List<ChamadoTecnico> lista = null;
+		List<ChamadoTecnico> chamados = null;
 		try {
-			lista = this.chamadoService.listaTodos();
-			entity = new ResponseEntity<List<ChamadoTecnico>> (lista, HttpStatus.OK);
+			chamados = this.chamadoService.listaTodos();
+			entity = new ResponseEntity<List<ChamadoTecnico>> (chamados, HttpStatus.OK);
 		} catch (Exception e ) {
 			e.printStackTrace();
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("erro", e.getMessage());
-			entity = new ResponseEntity<List<ChamadoTecnico>> (lista, headers,HttpStatus.BAD_REQUEST);	
+			entity = new ResponseEntity<List<ChamadoTecnico>> (chamados, headers,HttpStatus.BAD_REQUEST);	
 		}
 		return entity;
 	}
@@ -70,8 +70,9 @@ public class ChamadoController {
 		return response;
 	}
 	
+	@Transactional
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<String> inclui(@RequestBody ChamadoTecnico chamado) {
+	public ResponseEntity<String> inclui( ChamadoTecnico chamado) {
 		ResponseEntity<String> response = null;
 		try {
 			this.validaChamado(chamado);

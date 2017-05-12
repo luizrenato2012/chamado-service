@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="chamadoApp">
+<head>
+	<meta charset="UTF-8">
+	<script src="js/angular.min.js"></script>
+	<script src="js/controller.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<h5>Chamado Técnico</h5>
+	<div ng-controller="ChamadoController">
+	<form method="post" action="app/chamado">
+		<table>
+			<tr>
+				<td>
+					<label>CPF</label>
+					<input type="text" name="cpf" ng-model="chamado.cpf"/>
+				<td>
+			</tr>
+			<tr>
+				<td>
+					<label>Data</label>
+					<input type="text" name="data" ng-model="chamado.dataAbertura"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<label>Equipamento</label>
+				<input type="text" name="equipamento" ng-model="chamado.equipamento"/>
+				</td>
+			</tr>
+				<tr>
+				<td>
+					<label>Marca</label>
+					<input type="text" name="marca" ng-model="chamado.marca"/>
+				<td>
+			</tr>
+			<tr>
+				<td>
+					<label>Modelo</label>
+					<input type="text" name="modelo" ng-model="chamado.modelo"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>N. Série</label>
+					<input type="text" name="numero_serie" ng-model="chamado.numeroSerie"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Defeito</label>
+					<input type="text" name="defeito" ng-model="chamado.defeito"/>
+				<td>
+			</tr>
+			<tr>
+				<td>
+					<button ng-click="gravar()">Gravar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>

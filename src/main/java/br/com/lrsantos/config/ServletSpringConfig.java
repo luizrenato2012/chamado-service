@@ -16,7 +16,7 @@ public class ServletSpringConfig  extends AbstractAnnotationConfigDispatcherServ
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[]{"/"};
+		return new String[]{"/app/*"};
 	}
 
 }

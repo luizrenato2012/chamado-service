@@ -24,13 +24,13 @@ public class ChamadoRespository {
 	}
 	
 	public List<ChamadoTecnico> listaPorSituacao(String situacao) {
-		Query query = (Query) entityManager.createQuery("select c from Chamado c where c.situacao= ?1");
+		Query query = (Query) entityManager.createQuery("select c from ChamadoTecnico c where c.situacao= ?1");
 		query.setParameter(1, situacao);
 		return query.getResultList();
 	}
 	
 	public List<ChamadoTecnico> listaTodos() {
-		Query query = (Query) entityManager.createQuery("select c from Chamado");
+		Query query = (Query) entityManager.createQuery("select c from ChamadoTecnico");
 		return query.getResultList();
 	}
 	
