@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,15 @@ public class ChamadoController {
 
 	@Autowired
 	private ChamadoService chamadoService;
+	
+	@Autowired
+	private ChamadoNotificador notificador;
 
 	@RequestMapping(value="/teste", method = RequestMethod.GET)
 	@ResponseBody
 	public String doTeste() {
+		System.out.println(notificador);
+		new Thread(notificador).start();
 		return "teste ok";
 	}
 
@@ -51,17 +57,7 @@ public class ChamadoController {
 		return chamados;
 	}
 	
-//	@RequestMapping(value="/get", method=RequestMethod.GET)
-//	@ResponseBody
-//	public List<ChamadoTecnico> testeChamado() {
-//		List<ChamadoTecnico> lista = new ArrayList<ChamadoTecnico>();
-//		lista.add(criaChamado(4, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
-//		lista.add(criaChamado(5, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
-//		lista.add(criaChamado(6, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
-//		lista.add(criaChamado(7, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
-//		return lista;
-//	}
-	
+
 	private ChamadoTecnico criaChamado(Integer id, String cpf, String equipamento, String marca,
 			String modelo, String defeito) {
 		ChamadoTecnico chamado = new ChamadoTecnico();
