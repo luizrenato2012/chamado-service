@@ -5,7 +5,6 @@ myApp.controller('ChamadoController',['$scope','$http',function($scope, $http){
 		
 	$scope.inicializa = function() {
 		$scope.chamado.cpf='111111-11';
-		$scope.chamado.dataAbertura = '01/01/2017';
 		$scope.chamado.equipamento='Equipamento ';
 		$scope.chamado.marca = 'Marca'
 		$scope.chamado.modelo='Modelo'
@@ -14,9 +13,8 @@ myApp.controller('ChamadoController',['$scope','$http',function($scope, $http){
 	}
 	
 	$scope.inicializa();
-	
 	$scope.listaChamado=[];
-
+	
 	$scope.lista = function  () {
 		console.log ('listando ...');
 		$scope.chamados = [];
@@ -24,12 +22,13 @@ myApp.controller('ChamadoController',['$scope','$http',function($scope, $http){
 		$http.get('app/chamado/todos',null).
 			success(function(data, status, headers, config){
 				console.log('retorno '+ data);
-				$scope.chamados = data.chamados;
+				$scope.chamados = data;
 			}).
 			error(function(data, status, headers, config){
 				console.log('Erro ao listar '+ data);
 			});
 	}
+	$scope.lista();
 
 	$scope.grava = function () {
 		var chamado = {};

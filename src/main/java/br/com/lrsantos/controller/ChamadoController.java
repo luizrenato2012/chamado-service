@@ -1,27 +1,24 @@
 package br.com.lrsantos.controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.lrsantos.model.ChamadoService;
 import br.com.lrsantos.model.ChamadoTecnico;
-import br.com.lrsantos.model.SituacaoChamado;
+import br.com.lrsantos.model.Produto;
 
 @Controller
 @RequestMapping("/chamado")
@@ -38,28 +35,70 @@ public class ChamadoController {
 	}
 
 	@RequestMapping(value="/todos", method=RequestMethod.GET)
-	public ResponseEntity<List<ChamadoTecnico>> listaTodos() {
+	@ResponseBody
+	public List<ChamadoTecnico> listaTodos() {
 		ResponseEntity<List<ChamadoTecnico>> entity ;
 		List<ChamadoTecnico> chamados = null;
 		try {
 			chamados = this.chamadoService.listaTodos();
-			entity = new ResponseEntity<List<ChamadoTecnico>> (chamados, HttpStatus.OK);
+//			entity = new ResponseEntity<List<ChamadoTecnico>> (chamados, HttpStatus.OK);
 		} catch (Exception e ) {
 			e.printStackTrace();
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("erro", e.getMessage());
-			entity = new ResponseEntity<List<ChamadoTecnico>> (chamados, headers,HttpStatus.BAD_REQUEST);	
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.add("erro", e.getMessage());
+//			entity = new ResponseEntity<List<ChamadoTecnico>> (chamados, headers,HttpStatus.BAD_REQUEST);	
 		}
-		return entity;
+		return chamados;
 	}
 	
-	@RequestMapping(value="/situacao", method=RequestMethod.GET)
-	public ResponseEntity<List<ChamadoTecnico>> listaPorSituacao(@PathVariable String situacao) {
+//	@RequestMapping(value="/get", method=RequestMethod.GET)
+//	@ResponseBody
+//	public List<ChamadoTecnico> testeChamado() {
+//		List<ChamadoTecnico> lista = new ArrayList<ChamadoTecnico>();
+//		lista.add(criaChamado(4, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
+//		lista.add(criaChamado(5, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
+//		lista.add(criaChamado(6, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
+//		lista.add(criaChamado(7, "111111-11", "equipamento", "Marca", "Modelo", "Defeito"));
+//		return lista;
+//	}
+	
+	private ChamadoTecnico criaChamado(Integer id, String cpf, String equipamento, String marca,
+			String modelo, String defeito) {
+		ChamadoTecnico chamado = new ChamadoTecnico();
+		chamado.setId(id);
+		chamado.setEquipamento(equipamento);
+		chamado.setMarca(marca);
+		chamado.setModelo(modelo);
+		chamado.setDefeito(defeito);
+		return chamado;
+	}
+	
+	@RequestMapping(value="/{id}",  method=RequestMethod.GET)
+	@ResponseBody
+	public ChamadoTecnico encontra(@PathVariable("id")Integer id) {
+		ChamadoTecnico chamado = this.chamadoService.encontra(id);
+		return chamado;
+	}
+	
+	@RequestMapping(value="/produto", method=RequestMethod.GET)
+	@ResponseBody
+	public Produto encontra() {
+		Produto produto = null;
+		try {
+			produto= new Produto();
+		} catch (Exception e ) {
+			e.printStackTrace();
+		}
+		return produto;
+	}
+	
+	@RequestMapping(value="/situacao/{situacao}", method=RequestMethod.GET)
+	public ResponseEntity<List<ChamadoTecnico>> listaPorSituacao(@PathVariable("situacao") String situacao) {
 		String retorno="";
 		ResponseEntity<List<ChamadoTecnico>> response = null;
 		List<ChamadoTecnico> lista = null;
 		try {
-			this.chamadoService.listaPorSituacao(situacao);
+			lista = this.chamadoService.listaPorSituacao(situacao);
 			response = new ResponseEntity<List<ChamadoTecnico>>(lista, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,6 +115,7 @@ public class ChamadoController {
 		ResponseEntity<String> response = null;
 		try {
 			this.validaChamado(chamado);
+			chamado.setDataAbertura(new Date());
 			this.chamadoService.inclui(chamado);
 			response = new ResponseEntity<String>("Ok", HttpStatus.OK);
 		} catch (Exception e) {

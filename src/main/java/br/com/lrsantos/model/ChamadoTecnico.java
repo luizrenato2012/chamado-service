@@ -1,5 +1,6 @@
 package br.com.lrsantos.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="chamado_service.chamado_tecnico")
@@ -52,8 +56,10 @@ public class ChamadoTecnico {
 	@OneToMany(mappedBy="chamado")
 	private List<AtendimentoChamado> listaAtendimento;	
 	
+	@JsonIgnore
 	public ChamadoTecnico() {
 		this.situacao = SituacaoChamado.ABERTO;
+		this.listaAtendimento = new ArrayList<AtendimentoChamado>();
 	}
 	
 	public Integer getId() {
@@ -111,6 +117,7 @@ public class ChamadoTecnico {
 		this.situacao = situacao;
 	}
 	
+	@JsonIgnore
 	public List<AtendimentoChamado> getListaAtendimento() {
 		return listaAtendimento;
 	}

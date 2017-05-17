@@ -23,15 +23,19 @@ public class ChamadoRespository {
 		this.entityManager.merge(chamado);
 	}
 	
-	public List<ChamadoTecnico> listaPorSituacao(String situacao) {
+	public List<ChamadoTecnico> listaPorSituacao(SituacaoChamado situacao) {
 		Query query = (Query) entityManager.createQuery("select c from ChamadoTecnico c where c.situacao= ?1");
 		query.setParameter(1, situacao);
 		return query.getResultList();
 	}
 	
 	public List<ChamadoTecnico> listaTodos() {
-		Query query = (Query) entityManager.createQuery("select c from ChamadoTecnico");
+		Query query = (Query) entityManager.createQuery("select c from ChamadoTecnico c");
 		return query.getResultList();
+	}
+	
+	public ChamadoTecnico encontra(Integer id){
+		return this.entityManager.find(ChamadoTecnico.class, id);
 	}
 	
 }

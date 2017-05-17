@@ -14,6 +14,14 @@
 				<th>Id</th> <th>Data</th> <th>CPF</th> <th>Equipamento</th> <th>Marca</th> <th>Modelo</th>
 			<tr>
 			
+			<tr ng-repeat="chamado in chamados">
+				<td>{{chamado.id}}</td>
+				<td>{{chamado.dataAbertura}}</td>
+				<td>{{chamado.cpf}}</td>
+				<td>{{chamado.equipamento}}</td>
+				<td>{{chamado.marca}}</td>
+				<td>{{chamado.modelo}}</td>
+			</tr>
 		</table>
 	</div>
 </body>

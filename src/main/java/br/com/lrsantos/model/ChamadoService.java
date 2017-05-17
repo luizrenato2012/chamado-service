@@ -1,6 +1,8 @@
 package br.com.lrsantos.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChamadoService {
 	
+	private Map<String,SituacaoChamado> mapSituacao;
+	
+	public ChamadoService() {
+		mapSituacao = new HashMap<String,SituacaoChamado>();
+		mapSituacao.put("aberto", SituacaoChamado.ABERTO);
+		mapSituacao.put("fechado", SituacaoChamado.FECHADO);
+		mapSituacao.put("enviado", SituacaoChamado.ENVIADO);
+		mapSituacao.put("atendimento", SituacaoChamado.EM_ATENDIMENTO);
+	}
+
 	@Autowired
 	private ChamadoRespository dao;
 	
@@ -16,10 +28,17 @@ public class ChamadoService {
 	}
 	
 	public List<ChamadoTecnico> listaPorSituacao(String situacao) {
-		return this.dao.listaPorSituacao(situacao);
+		if(!mapSituacao.containsKey(situacao)){
+			throw new RuntimeException("Situacao "+ situacao + " invalida");
+		}
+		return this.dao.listaPorSituacao(mapSituacao.get(situacao));
 	}
 	
 	public List<ChamadoTecnico> listaTodos(){
 		return this.dao.listaTodos();
+	}
+
+	public ChamadoTecnico encontra(Integer id) {
+		return this.dao.encontra(id);
 	}
 }
