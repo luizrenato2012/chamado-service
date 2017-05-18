@@ -13,12 +13,14 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import org.jboss.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@ClientEndpoint()
+@ClientEndpoint
 public class ChamadoNotificador {
 	private Logger log = Logger.getLogger(this.getClass().getName());
+	
 	private Session session;
 	private WebSocketContainer container;
 	
