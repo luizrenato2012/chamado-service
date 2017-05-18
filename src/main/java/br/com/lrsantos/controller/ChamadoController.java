@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,18 +26,28 @@ import br.com.lrsantos.model.Produto;
 @RequestMapping("/chamado")
  // habilita transacao em todos metodos do metodos da classe
 public class ChamadoController {
+	
+	private Logger log = Logger.getLogger(this.getClass().getName());
 
 	@Autowired
 	private ChamadoService chamadoService;
 	
-	@Autowired
 	private ChamadoNotificador notificador;
-
+	
 	@RequestMapping(value="/teste", method = RequestMethod.GET)
 	@ResponseBody
 	public String doTeste() {
-		System.out.println(notificador);
-		new Thread(notificador).start();
+		log.info("Testando");
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (notificador==null) {
+					notificador = new ChamadoNotificador();
+				}
+				notificador.notifica();
+			}
+		}).start();
 		return "teste ok";
 	}
 

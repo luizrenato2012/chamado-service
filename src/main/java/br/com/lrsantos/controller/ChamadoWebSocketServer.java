@@ -1,7 +1,5 @@
 package br.com.lrsantos.controller;
 
-import java.text.SimpleDateFormat;
-
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
