@@ -7,7 +7,9 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import org.jboss.logging.Logger;
+import org.springframework.stereotype.Component;
 
+@Component
 @ServerEndpoint("/notificacao")
 public class ChamadoWebSocketServer {
 	
@@ -18,19 +20,15 @@ public class ChamadoWebSocketServer {
 		log.info((String.format("Mensagem recebida [%s]", mensagem)));
 		if (mensagem==null || mensagem.trim().equals("")) {
 			log.info(">>> mensagem vazia");
-		} else if (mensagem.equals("NOTIFICA")) {
-			this.enviaNotificacao(session);
+		} else {
+			this.enviaNotificacao(session, mensagem);
 		}
-		else {
-			log.info(String.format(">> mensagem recebida diversa [%s]", mensagem));
-		}
-		
 	}
 	
-	private void enviaNotificacao(Session sessao) {
+	private void enviaNotificacao(Session sessao, String mensagem) {
 		for(Session sessaoCliente :sessao.getOpenSessions() ) {
 			try {
-				sessaoCliente.getBasicRemote().sendText(">> server ");
+				sessaoCliente.getBasicRemote().sendText(mensagem);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}

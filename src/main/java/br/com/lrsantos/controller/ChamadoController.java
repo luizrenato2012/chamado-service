@@ -45,7 +45,7 @@ public class ChamadoController {
 				if (notificador==null) {
 					notificador = new ChamadoNotificador();
 				}
-				notificador.notifica();
+				notificador.notifica(ChamadoController.this.chamadoService.listaTodosJson());
 			}
 		}).start();
 		return "teste ok";

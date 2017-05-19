@@ -7,6 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class ChamadoService {
 	
@@ -40,5 +43,17 @@ public class ChamadoService {
 
 	public ChamadoTecnico encontra(Integer id) {
 		return this.dao.encontra(id);
+	}
+	
+	public String listaTodosJson() {
+		ObjectMapper mapper = new ObjectMapper();
+		List<ChamadoTecnico> lista = this.listaTodos();
+		String jsonLista = "";
+		try {
+			jsonLista = mapper.writeValueAsString(lista);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return jsonLista;
 	}
 }

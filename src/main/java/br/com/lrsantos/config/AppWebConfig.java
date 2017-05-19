@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages={"br.com.lrsantos"})
+@ComponentScan(basePackages={"br.com.lrsantos.model","br.com.lrsantos.config","br.com.lrsantos.controller"})
 public class AppWebConfig extends WebMvcConfigurerAdapter {
 
 	private HandlerInterceptor interceptor;

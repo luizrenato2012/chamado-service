@@ -42,13 +42,12 @@ public class ChamadoNotificador {
 		}
 	}
 	
-	public void notifica() {
+	public void notifica(String mensagem) {
 		inicializa();
 		log.info(">>> Notificando " );
 		try {
-			this.session.getBasicRemote().sendText("NOTIFICA");
+			this.session.getBasicRemote().sendText(mensagem);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
