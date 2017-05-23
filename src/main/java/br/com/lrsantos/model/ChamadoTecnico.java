@@ -1,5 +1,6 @@
 package br.com.lrsantos.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,6 +34,7 @@ public class ChamadoTecnico {
 	@Column(length=20)
 	private String cpf;
 	
+	@JsonIgnore
 	@Column(name="data_abertura")
 	private Date dataAbertura;
 	
@@ -55,6 +58,9 @@ public class ChamadoTecnico {
 	
 	@OneToMany(mappedBy="chamado")
 	private List<AtendimentoChamado> listaAtendimento;	
+	
+	@Transient
+	private String dataCriacao;
 	
 	@JsonIgnore
 	public ChamadoTecnico() {
@@ -123,6 +129,13 @@ public class ChamadoTecnico {
 	}
 	public void setListaAtendimento(List<AtendimentoChamado> listaAtendimento) {
 		this.listaAtendimento = listaAtendimento;
+	}
+	
+	public String getDataCriacao() {
+		if (this.dataAbertura==null) {
+			return "";
+		}
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(this.dataAbertura);
 	}
 
 	@Override

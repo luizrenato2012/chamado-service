@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-		#notificacao {
-			font-family: arial;
-			font-size: 18px;
-			float: center;
-		}
-	</style>	
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<meta charset="UTF-8">
 	<title></title>
 	
@@ -18,7 +12,12 @@
 	</div>
 	<br/>
 	<input type="text" id="mensagem"/>
-	<button onclick="envia()">Envia</button>
+	<button onclick="envia()">Envia</button> <br/> <br/>
+	<table>
+		<tr>
+			<th>Num.</th> <th>Data</th> <th>Num.</th> <th>Equipamento</th> <th>Marca</th> <th>Modelo</th> <th>Situação</th>
+		</tr>
+	</table>
 	<script src="js/socket-client.js"></script>
 </body>
 </html>

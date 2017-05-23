@@ -36,7 +36,27 @@ function envia() {
 
 socket.onmessage = function (event){
 	console.log('Mensagem recebida: '+ event.data);
-	escreve(event.data);
+//	escreve(event.data);
+	atualiza(event.data);
+}
+
+var atualiza = function(data) {
+	var table = document.querySelector('table');
+	var registros = JSON.parse(data);
+	var registro={};
+	var linhas = '';
+	
+	if (registros.length > 0){
+		table.innerHTML = '<tr>	<th>Num.</th> <th>Data</th> <th>Equipamento</th> <th>Marca</th> <th>Modelo</th> <th>Situação</th></tr>';
+	}
+	for (var i=0; i < registros.length ;i++) {
+		registro = registros[i];
+		console.log(registro);
+		linhas+='<tr><td>'+ registro.id + '</td><td>' + registro.dataCriacao+ '</td><td>' + registro.equipamento +'</td><td>' +
+				 registro.marca + '</td><td>'+ registro.modelo +'</td><td>'+ registro.situacao+'</td></tr>';
+	}
+	table.innerHTML+=linhas;
+	
 }
 
 socket.onclose = function(event) {

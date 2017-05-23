@@ -125,6 +125,16 @@ public class ChamadoController {
 			chamado.setDataAbertura(new Date());
 			this.chamadoService.inclui(chamado);
 			response = new ResponseEntity<String>("Ok", HttpStatus.OK);
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					if (notificador==null) {
+						notificador = new ChamadoNotificador();
+					}
+					notificador.notifica(ChamadoController.this.chamadoService.listaTodosJson());
+				}
+			}).start();
 		} catch (Exception e) {
 			e.printStackTrace();
 			response = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
