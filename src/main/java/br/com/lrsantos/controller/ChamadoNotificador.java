@@ -13,7 +13,6 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import org.jboss.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -35,7 +34,7 @@ public class ChamadoNotificador {
 			log.info("Inicializando ");
 			container = ContainerProvider.getWebSocketContainer();
 			try {
-				container.connectToServer(this, new URI("ws://10.0.20.98:8080/chamado-service/notificacao"));
+				this.session = container.connectToServer(this, new URI("ws://10.0.20.98:8080/chamado-service/notificacao"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -60,7 +59,7 @@ public class ChamadoNotificador {
 	@OnOpen
 	public void onAbre(Session session) {
 		log.info(">>> abrindo conexao notificador " );
-		this.session = session;
+	//	this.session = session;
 	}
 	
 	@OnMessage

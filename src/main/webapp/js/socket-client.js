@@ -6,6 +6,7 @@ var socket ;
 	
 	socket = new WebSocket("ws://10.0.20.98:8080/chamado-service/notificacao");
 	escreve('Conexao iniciada');
+//	enviaMensagemInicial();
 })();
 
 function conectar() {
@@ -33,6 +34,11 @@ function envia() {
 	escreve('Enviando mensagem: '+ mensagem)
 	socket.send(mensagem);
 }
+
+//function enviaMensagemInicial() {
+//	console.log('Enviando mensagem inicial');
+//	socket.send("inicio");
+//}
 
 socket.onmessage = function (event){
 	console.log('Mensagem recebida: '+ event.data);
