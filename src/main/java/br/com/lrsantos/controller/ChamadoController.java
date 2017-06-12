@@ -1,10 +1,8 @@
 package br.com.lrsantos.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
 import org.jboss.logging.Logger;
