@@ -17,7 +17,7 @@ public class ChamadoWebSocketServer {
 	
 	@OnMessage
 	public void enviaMensagem (Session session, String mensagem) {
-		log.info((String.format("Mensagem recebida [%s]", mensagem)));
+//		log.info((String.format(">>> 3 - Mensagem recebida [%s]", mensagem)));
 		if (mensagem==null || mensagem.trim().equals("")) {
 			log.info(">>> mensagem vazia");
 		} else {
@@ -37,11 +37,10 @@ public class ChamadoWebSocketServer {
 	
 	@OnOpen 
 	public void iniciandoConexao(Session session, EndpointConfig config) {
-		System.out.println(">> Conexao aberta");
+		log.info(">> Conexao aberta");
 	}
 	
 	public void onError(Session session, Throwable exception) {
-		log.info(">>> erro");
 		exception.printStackTrace();
 	}
 }

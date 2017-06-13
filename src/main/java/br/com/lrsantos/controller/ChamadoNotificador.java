@@ -43,7 +43,6 @@ public class ChamadoNotificador {
 	
 	public void notifica(String mensagem) {
 		inicializa();
-		log.info(">>> Notificando " );
 		try {
 			this.session.getBasicRemote().sendText(mensagem);
 		} catch (IOException e) {
@@ -58,7 +57,7 @@ public class ChamadoNotificador {
 	
 	@OnOpen
 	public void onAbre(Session session) {
-		log.info(">>> abrindo conexao notificador " );
+	//	log.info(">>> abrindo conexao notificador " );
 	//	this.session = session;
 	}
 	
@@ -67,12 +66,4 @@ public class ChamadoNotificador {
 		log.info("Recebendo "+ mensagem);
 	}
 
-	@Override
-	public String toString() {
-		return "ChamadoNotificador []";
-	}
-
-	
-	
-	
 }

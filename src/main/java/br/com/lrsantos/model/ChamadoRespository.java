@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +15,9 @@ public class ChamadoRespository {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	
 	public void inclui(ChamadoTecnico chamado){
 		this.entityManager.persist(chamado);
+		this.entityManager.flush();
 	}
 	
 	public void atualiza(ChamadoTecnico chamado){

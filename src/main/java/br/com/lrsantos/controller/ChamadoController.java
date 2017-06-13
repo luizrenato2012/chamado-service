@@ -127,10 +127,7 @@ public class ChamadoController {
 				
 				@Override
 				public void run() {
-					if (notificador==null) {
-						notificador = new ChamadoNotificador();
-					}
-					notificador.notifica(ChamadoController.this.chamadoService.listaTodosJson());
+					notificaInclusao();
 				}
 			}).start();
 		} catch (Exception e) {
@@ -139,9 +136,19 @@ public class ChamadoController {
 		}
 		return response;
 	}
+	
+	private void notificaInclusao() {
+		if (notificador==null) {
+			notificador = new ChamadoNotificador();
+		}
+//		log.info(">> 1 - criando notificacao");
+		String strJson = ChamadoController.this.chamadoService.listaTodosJson();
+//		log.info(">> 1.2 - enviando:\n" + strJson);
+		notificador.notifica(strJson);
+	}
 
 	private void validaChamado(ChamadoTecnico chamado) {
-		System.out.println("Recebendo chamado: \n"+ chamado);
+//		log.info("Recebendo chamado: \n"+ chamado);
 		if(chamado==null) {
 			throw new RuntimeException("Chamado invalido");
 		}
